@@ -45,7 +45,7 @@
             async function loadScene() {
                 try {
                     // Import the scene module dynamically
-                    const module = await import(`./scenes/${sceneName}.js`);
+                    const module = await import(`../scenes/${sceneName}.js`);
                     const createScene = module.default;
 
                     const game = new GameEngine();
