@@ -1,9 +1,11 @@
 export const createRenderer = () => {
     // Preload sprites
     const sprites = {
-        rock: Object.assign(new Image(), { src: "/assets/rock.png" }),
-        paper: Object.assign(new Image(), { src: "/assets/paper.png" }),
-        scissors: Object.assign(new Image(), { src: "/assets/scissors.png" }),
+        rock: Object.assign(new Image(), { src: "/games/assets/rock.png" }),
+        paper: Object.assign(new Image(), { src: "/games/assets/paper.png" }),
+        scissors: Object.assign(new Image(), {
+            src: "/games/assets/scissors.png",
+        }),
     };
 
     const drawSpriteSymbol = (ctx, type, x, y, size) => {
