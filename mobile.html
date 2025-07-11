@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Interactive Scene</title>
+        <style>
+            body {
+                margin: 0;
+                overflow: hidden;
+                background: #222;
+            }
+
+            canvas {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            #fullscreenButton {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                border: 2px solid white;
+                padding: 15px 30px;
+                border-radius: 5px;
+                font-size: 18px;
+                cursor: pointer;
+                z-index: 1000;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="gameCanvas"></canvas>
+        <button id="fullscreenButton">Start Experience</button>
+
+        <script type="module">
+            import { GameEngine } from "./game.js";
+
+            // Dynamically import the scene based on URL parameter
+            const params = new URLSearchParams(window.location.search);
+            const sceneName = params.get("scene") || "animated-circles"; // default scene
+
+            async function loadScene() {
+                try {
+                    // Import the scene module dynamically
+                    const module = await import(`./scenes/${sceneName}.js`);
+                    const createScene = module.default;
+
+                    const game = new GameEngine();
+                    const scene = createScene(game);
+
+                    game.registerScene(
+                        scene.name || "Interactive Scene",
+                        scene
+                    );
+
+                    const fullscreenButton =
+                        document.getElementById("fullscreenButton");
+
+                    const startExperience = async () => {
+                        try {
+                            if (document.documentElement.requestFullscreen) {
+                                await document.documentElement.requestFullscreen();
+                            }
+                            fullscreenButton.style.display = "none";
+                            game.initialize();
+                            game.transitionToScene(
+                                scene.name || "Interactive Scene"
+                            );
+                        } catch (err) {
+                            console.error(
+                                "Error attempting to enable fullscreen:",
+                                err
+                            );
+                            fullscreenButton.style.display = "none";
+                            game.initialize();
+                            game.transitionToScene(
+                                scene.name || "Interactive Scene"
+                            );
+                        }
+                    };
+
+                    fullscreenButton.addEventListener("click", startExperience);
+
+                    // For non-mobile or if fullscreen isn't needed
+                    if (
+                        !/Mobi|Android|iPhone|iPad|iPod/i.test(
+                            navigator.userAgent
+                        )
+                    ) {
+                        fullscreenButton.style.display = "none";
+                        game.initialize();
+                        game.transitionToScene(
+                            scene.name || "Interactive Scene"
+                        );
+                    }
+                } catch (error) {
+                    console.error("Error loading scene:", error);
+                    document.body.innerHTML =
+                        '<h1 style="color:white;text-align:center;">Scene not found</h1>';
+                }
+            }
+
+            loadScene();
+        </script>
+    </body>
+</html>

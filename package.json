@@ -1,0 +1,9 @@
+{
+    "name": "day_game",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "http-server ."
+    },
+    "author": "",
+    "description": ""
+}
