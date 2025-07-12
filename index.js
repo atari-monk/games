@@ -1,3 +1,5 @@
+import { getAssetPathForGameHub } from "./assetService.js";
+
 document.addEventListener("DOMContentLoaded", () => {
     // Button animations (unchanged)
     const buttons = document.querySelectorAll(".btn");
@@ -27,7 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const target = card.getAttribute("target");
 
             try {
-                const audio = new Audio("assets/audio/arcade-button.mp3");
+                const audio = new Audio(
+                    getAssetPathForGameHub("audio/arcade-button.mp3")
+                );
                 audio.volume = 0.3; // Lower volume for better UX
                 const soundPlayed = audio.play();
 

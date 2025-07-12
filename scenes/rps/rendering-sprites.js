@@ -1,14 +1,16 @@
+import { getAssetPathForScene } from "../../assetService.js";
+
 export const createRenderer = () => {
     // Preload sprites
     const sprites = {
         rock: Object.assign(new Image(), {
-            src: "../assets/image/rock.png",
+            src: getAssetPathForScene("image/rock.png"),
         }),
         paper: Object.assign(new Image(), {
-            src: "../assets/image/paper.png",
+            src: getAssetPathForScene("image/paper.png"),
         }),
         scissors: Object.assign(new Image(), {
-            src: "../assets/image/scissors.png",
+            src: getAssetPathForScene("image/scissors.png"),
         }),
     };
 
