@@ -3,29 +3,56 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Responsive Template</title>
+        <title>Game Hub</title>
         <link rel="stylesheet" href="styles.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <body>
-        <header>
-            <h1>My Responsive Website</h1>
-            <nav>
-                <ul>
-                    <li><a href="https://atari-monk.github.io/games/run_tool/mobile.html?scene=rps/rock-paper-scissors">Rock Paper Scissors</a></li>
-                </ul>
-            </nav>
+        <header class="game-header">
+            <div class="pixel-corners">
+                <h1>GAME HUB</h1>
+            </div>
+            <div class="arcade-machine">
+                <div class="screen">
+                    <p>SELECT YOUR GAME</p>
+                </div>
+                <div class="controls">
+                    <div class="joystick"></div>
+                    <div class="buttons">
+                        <button class="btn red"></button>
+                        <button class="btn yellow"></button>
+                        <button class="btn green"></button>
+                    </div>
+                </div>
+            </div>
         </header>
 
-        <main>
-            <section class="content">
-                <h2>Welcome!</h2>
-                <p>This is a responsive template with HTML, CSS, and JS.</p>
-            </section>
+        <main class="game-grid">
+            <a
+                href="https://atari-monk.github.io/games/run_tool/mobile.html?scene=rps/rock-paper-scissors"
+                class="game-card"
+                onclick="return true;"
+            >
+                <div class="game-icon">✊✋✌️</div>
+                <h3>Rock Paper Scissors</h3>
+                <p>Classic hand game showdown!</p>
+            </a>
+
+            <!-- Add more game cards as needed -->
+            <div class="game-card coming-soon">
+                <div class="game-icon">?</div>
+                <h3>More Games Coming Soon!</h3>
+                <p>Stay tuned for awesome additions</p>
+            </div>
         </main>
 
-        <footer>
-            <p>&copy; 2025 My Website</p>
+        <footer class="game-footer">
+            <p>© 2025 GAME HUB | Press START to continue</p>
         </footer>
 
+        <script src="index.js"></script>
     </body>
 </html>
