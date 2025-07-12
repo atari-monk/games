@@ -8,4 +8,6 @@ const production = {
     assetsBasePathForGameHub: "/games/assets/",
 };
 
-export const config = production;
+const isDevelopment = false;
+
+export const config = isDevelopment ? development : production;

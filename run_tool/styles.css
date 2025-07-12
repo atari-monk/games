@@ -15,12 +15,43 @@ canvas {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
     color: white;
-    border: 2px solid white;
-    padding: 15px 30px;
-    border-radius: 5px;
-    font-size: 18px;
+    border: none;
+    padding: 30px 60px;
+    border-radius: 50px; /* More playful rounded corners */
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
     z-index: 1000;
+    min-width: 250px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255, 117, 140, 0.6);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#fullscreenButton:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 0 40px rgba(255, 117, 140, 0.8);
+}
+
+#fullscreenButton:active {
+    transform: translate(-50%, -50%) scale(0.98);
+}
+
+#fullscreenButton::after {
+    content: "🎉";
+    margin-left: 10px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
 }
