@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Button animations
+    // Button animations (unchanged)
     const buttons = document.querySelectorAll(".btn");
     buttons.forEach((button) => {
         button.addEventListener("mousedown", () => {
@@ -18,25 +18,40 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Game card interactions (only if sound is available)
+    // Game card interactions - UPDATED VERSION
     const gameCards = document.querySelectorAll(".game-card[href]");
+    gameCards.forEach((card) => {
+        card.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const href = card.getAttribute("href");
+            const target = card.getAttribute("target");
 
-    if (gameCards.length > 0) {
-        gameCards.forEach((card) => {
-            card.addEventListener("click", (e) => {
-                // Remove this if you don't want sound effects
-                try {
-                    const audio = new Audio("./assets/audio/arcade-button.mp3");
-                    audio.play().catch((e) => console.log("Sound error:", e));
-                    // Don't wait for sound to finish
-                    setTimeout(() => {
-                        window.location.href = card.getAttribute("href");
-                    }, 100); // Short delay for feedback
-                } catch (err) {
-                    console.log("Audio error:", err);
-                    window.location.href = card.getAttribute("href");
+            try {
+                const audio = new Audio("assets/audio/arcade-button.mp3");
+                audio.volume = 0.3; // Lower volume for better UX
+                const soundPlayed = audio.play();
+
+                // Wait either for sound to play or minimum 300ms
+                await Promise.race([
+                    soundPlayed,
+                    new Promise((resolve) => setTimeout(resolve, 300)),
+                ]);
+
+                // Handle navigation based on target attribute
+                if (target === "_blank") {
+                    window.open(href, "_blank");
+                } else {
+                    window.location.href = href;
                 }
-            });
+            } catch (err) {
+                console.warn("Audio error:", err);
+                // Fallback navigation if audio fails
+                if (target === "_blank") {
+                    window.open(href, "_blank");
+                } else {
+                    window.location.href = href;
+                }
+            }
         });
-    }
+    });
 });
