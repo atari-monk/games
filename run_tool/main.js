@@ -1,19 +1,18 @@
 import { GameEngine } from "./game.js";
 
-// Dynamically import the scene based on URL parameter
 const params = new URLSearchParams(window.location.search);
-const sceneName = params.get("scene") || "none"; // default scene
+const sceneName = params.get("scene") || "rps/rock-paper-scissors";
 
 async function loadScene() {
     try {
-        // Import the scene module dynamically
+        const defaultSceneName = "Game";
         const module = await import(`../scenes/${sceneName}.js`);
         const createScene = module.default;
 
         const game = new GameEngine();
         const scene = createScene(game);
 
-        game.registerScene(scene.name || "Interactive Scene", scene);
+        game.registerScene(scene.name || defaultSceneName, scene);
 
         const fullscreenButton = document.getElementById("fullscreenButton");
 
@@ -24,23 +23,19 @@ async function loadScene() {
                 }
                 fullscreenButton.style.display = "none";
                 game.initialize();
-                game.transitionToScene(scene.name || "Interactive Scene");
+                game.transitionToScene(scene.name || defaultSceneName);
             } catch (err) {
                 console.error("Error attempting to enable fullscreen:", err);
                 fullscreenButton.style.display = "none";
                 game.initialize();
-                game.transitionToScene(scene.name || "Interactive Scene");
+                game.transitionToScene(scene.name || defaultSceneName);
             }
         };
 
         fullscreenButton.addEventListener("click", startExperience);
 
-        // For non-mobile or if fullscreen isn't needed
-        if (!/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            fullscreenButton.style.display = "none";
-            game.initialize();
-            game.transitionToScene(scene.name || "Interactive Scene");
-        }
+        // Always show the button first
+        fullscreenButton.style.display = "block";
     } catch (error) {
         console.error("Error loading scene:", error);
         document.body.innerHTML =

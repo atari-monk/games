@@ -2,13 +2,13 @@ export const createRenderer = () => {
     // Preload sprites
     const sprites = {
         rock: Object.assign(new Image(), {
-            src: "/games/assets/image/rock.png",
+            src: "../assets/image/rock.png",
         }),
         paper: Object.assign(new Image(), {
-            src: "/games/assets/image/paper.png",
+            src: "../assets/image/paper.png",
         }),
         scissors: Object.assign(new Image(), {
-            src: "/games/assets/image/scissors.png",
+            src: "../assets/image/scissors.png",
         }),
     };
 

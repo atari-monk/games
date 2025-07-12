@@ -2,7 +2,7 @@ import { createGameState } from "./game-logic.js";
 import { createInputHandler } from "./input-handler.js";
 import { createRenderer } from "./rendering-sprites.js";
 
-export default (game) => {
+const rockPaperSissors = (game) => {
     const state = createGameState();
     const inputHandler = createInputHandler(game);
     const renderer = createRenderer();
@@ -48,3 +48,4 @@ export default (game) => {
         },
     };
 };
+export default rockPaperSissors;
